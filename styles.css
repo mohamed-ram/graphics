@@ -43,11 +43,12 @@ input[type="text"] {
 .graphic-card {
     width: 23%;
     margin: 10px;
-    padding: 0 0 10px 0;
+    /* padding: 0 0 10px 0; */
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
+    position: relative;
 }
 
 .graphic-card img {
@@ -61,12 +62,30 @@ input[type="text"] {
 }
 
 .graphic-card img.card-font{
-    width: 100%;
+    width: 95%;
     max-width: 100%;
-    height: auto;
+    height: 300px;
     border-radius: 5px;
     cursor: pointer;
-    object-fit: cover;
+    object-fit: contain;
+    padding: 5px;
+    padding-bottom: 0;
+}
+
+.card-footer{
+    /* position: absolute;
+    bottom: 0; */
+    margin: 0 auto;
+    margin-bottom: 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-footer h3{
+    margin: 5px;
 }
 .pagination {
     text-align: center;

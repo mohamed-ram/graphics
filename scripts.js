@@ -2,7 +2,7 @@ let currentPage = 1;
 const graphicsPerPage = 48;
 const category = getQueryParam("category");
 
-let filteredgraphics = graphics;
+let filteredgraphics = shuffle(graphics);
 let data = shuffle(graphics);
 
 const graphicsButton = document.getElementById("graphics");
@@ -19,16 +19,16 @@ buttons.forEach((button) => {
     // Add 'active' class to the clicked button
     this.classList.add("active");
   });
+
   if (!category) {
     graphicsButton.classList.add("active");
-  }
-  if (category === "images") {
-    filteredgraphics = images;
-    data = images;
+  } else if (category === "images") {
+    filteredgraphics = shuffle(images);
+    data = shuffle(images);
     imagesButton.classList.add("active");
   } else if (category === "fonts") {
-    filteredgraphics = fonts;
-    data = fonts;
+    filteredgraphics = shuffle(fonts);
+    data = shuffle(fonts);
     fontsButton.classList.add("active");
   }
 });
@@ -50,18 +50,9 @@ function shuffle(array) {
   return array;
 }
 
-function getRandomItem(items) {
-  if (!Array.isArray(items) || items.length === 0) {
-    throw new Error("The input must be a non-empty array.");
-  }
-  const randomIndex = Math.floor(Math.random() * items.length);
-  return items[randomIndex];
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   rendergraphics();
   createNav();
-  console.log("Document loaded");
 });
 
 function rendergraphics() {
@@ -75,12 +66,8 @@ function rendergraphics() {
   currentGraphics.forEach((graphic) => {
     const graphicCard = document.createElement("div");
     graphicCard.className = "graphic-card";
-    if (category === "fonts") {
-      graphicCard.style.height = "auto";
-    }
 
-    // Use a placeholder image URL
-    const placeholderImage = "./imgs/loading.svg"; // Replace with your placeholder image URL
+    const placeholderImage = "./imgs/loading.svg";
 
     const imgElement = document.createElement("img");
     imgElement.src = placeholderImage;
@@ -89,32 +76,32 @@ function rendergraphics() {
     // Add the placeholder image class
     imgElement.classList.add("placeholder-image");
 
-    // Create a function to handle loading the actual image
-    function loadImage() {
-      const actualImage = new Image();
-      actualImage.src = graphic.images[0];
-      actualImage.onload = () => {
-        imgElement.src = actualImage.src;
-        // Remove the placeholder class if needed
-        imgElement.classList.remove("placeholder-image");
-      };
-      actualImage.onerror = (error) => {
-        imgElement.src = "./imgs/icon.ico";
-        graphicCard.style.height = "200px";
-        // console.log(`Error: ${error}`);
-      };
-    }
-    if (category === "fonts") {
+    // Load the actual image
+    const actualImage = new Image();
+    actualImage.src = graphic.images[0];
+
+    actualImage.onload = () => {
+      imgElement.src = actualImage.src;
+      imgElement.classList.remove("placeholder-image");
+    };
+
+    actualImage.onerror = () => {
+      console.error(`Failed to load image: ${graphic.images[0]}`);
+    };
+
+    if (typeof category !== "undefined" && category === "fonts") {
       imgElement.classList.add("card-font");
     }
-    // Attach an event listener to load the actual image when the placeholder is loaded
-    imgElement.onload = loadImage;
 
     // Construct the rest of the graphic card
     graphicCard.innerHTML = `
-      <h3>${graphic.title}</h3>
-      <small>${graphic.file_size}</small>
-      <small><a href='${graphic.download_link}' target="_blank" download>Download</a></small>
+      <div class='card-footer'>
+        <h3>${graphic.title}</h3>
+        <div class='download'>
+        <small>${graphic.file_size}</small>
+        <small><a href='${graphic.download_link}' target="_blank" download>Download</a></small>
+        </div>
+      </div>
     `;
 
     graphicCard.insertBefore(imgElement, graphicCard.firstChild);
@@ -126,7 +113,6 @@ function rendergraphics() {
 
     graphicsContainer.appendChild(graphicCard);
   });
-
   renderPagination();
 }
 
@@ -278,6 +264,7 @@ scrollToTopBtn.onclick = function () {
     behavior: "smooth",
   });
 };
+
 let imageUrls = [];
 let currentImageIndex = 0;
 
