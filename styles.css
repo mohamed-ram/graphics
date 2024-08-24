@@ -1,0 +1,436 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header, footer {
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    min-height: 15vh;
+}
+
+footer{
+    display: none;
+    padding-bottom: 40px;
+}
+
+.about-header {
+    width: 50%;
+    margin: 0 auto;
+}
+
+input[type="text"] {
+    padding: 15px;
+    width: 50%;
+    margin: 20px auto;
+    display: block;
+    /* border: 1px solid #ddd; */
+    border-radius: 5px;
+}
+
+.graphics-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    /* min-height: 50vh; */
+}
+
+.graphic-card {
+    width: 23%;
+    margin: 10px;
+    padding: 0 0 10px 0;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.graphic-card img {
+    width: 100%;
+    max-width: 100%;
+    max-height: 300px;
+    height: 300px;
+    border-radius: 5px;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.graphic-card img.card-font{
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    cursor: pointer;
+    object-fit: cover;
+}
+.pagination {
+    text-align: center;
+    padding: 20px;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.images-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.image-card {
+    width: 22%;
+    margin: 10px;
+    position: relative;
+}
+
+.image-card img {
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 11;
+    overflow: hidden;
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    background: rgb(255, 255, 255);
+}
+
+.modal-image {
+    margin: auto;
+    display: block;
+    min-height: 100vh;
+    height: 100vh;
+    max-width: 90%;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
+}
+
+img.font-image{
+    height: auto;
+    min-height: 300px;
+    width: 80%;
+    object-fit: contain;
+}
+
+
+.modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-left: 10px;
+    user-select: none;
+  }
+  
+  #modal-prev {
+    left: 10px;
+    background-color: rgba(255, 255, 255, 0.789);
+    border-radius: 2px;
+    z-index: 1005;
+}
+
+#modal-next {
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.789);
+    border-radius: 2px;
+    z-index: 1005;
+  }
+
+.nav-img{
+    width: 20px;
+}
+
+.graphic-card {
+    position: relative;
+}
+
+.heart-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 30px;
+    color: rgb(52, 50, 49);
+    cursor: pointer;
+}
+
+.heart-icon.favorite {
+    color: rgb(233, 75, 75);
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #11111187;
+    border-radius: 5px;
+}
+
+
+/* Grid layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Four equal columns */
+    gap: 10px; /* Space between columns */
+}
+
+.grid-item {
+    grid-column: 2 / 4; /* Span from column 2 to 3 (inclusive) */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns inside the graphic-about section */
+    gap: 10px; /* Space between items */
+}
+
+.grid-item div {
+    padding: 10px;
+    border: 1px solid #ddd; /* Optional: Add a border for visual separation */
+    background-color: #f9f9f9; /* Optional: Add a background color */
+}
+
+/* Optional: If you want other content in the 1st and 4th columns, style them separately */
+.grid-container > div:nth-child(1) {
+    grid-column: 1 / 2;
+}
+
+.grid-container > div:nth-child(4) {
+    grid-column: 4 / 5;
+}
+
+button {
+    outline: none;
+    padding: 10px;
+    font-weight: 300;
+    color: grey;
+    cursor: pointer;
+}
+
+#scrollToTopBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed position at the bottom-right corner */
+    bottom: 260px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    z-index: 10; /* Ensure it appears on top of other elements */
+    border: none;
+    outline: none;
+    background-color: #ffffff; /* Button background color */
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #ebeaea; /* Darker background on hover */
+}
+
+
+.hidden {
+    display: none;
+  }
+  
+.visible {
+    display: block;
+  }
+  
+
+#no-items-message{
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+button.active{
+    background-color: rgb(158, 212, 158) !important;
+}
+
+button:disabled{
+    display: none;
+}
+
+/* =================================== */
+#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+}
+
+#navbar > li {
+    display: inline-block;
+    position: relative;
+}
+
+#navbar > li > a {
+    display: block;
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li > a.active, a.active {
+    background-color: #000000;
+}
+
+#navbar > li > a:hover {
+    background-color: #111;
+}
+
+#navbar > li > ul {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#navbar > li:hover > ul {
+    display: block;
+}
+
+#navbar > li > ul > li > a {
+    padding: 12px 16px;
+    text-decoration: none;
+    color: white;
+}
+
+#navbar > li > ul > li > a:hover {
+    background-color: #111;
+}
+
+a.btn{
+    padding: 14px 16px;
+    text-decoration-line: none;
+    font-weight: bold;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.50) 0px 1px 3px, rgba(0, 0, 0, 0.50) 0px 1px 2px;
+}
+a.btn.active{
+    border: 2px solid white;
+}
+a.btn.active, a.btn:hover, a.btn:visited{
+    background-color: #000000;
+    box-shadow: rgba(0, 0, 0, 0.50) 0px 1px 3px, rgba(0, 0, 0, 0.50) 0px 1px 2px;
+
+}
+
+/* Styles for the placeholder image */
+.placeholder-image {
+    width: 100%; 
+    height: 300px; 
+    object-fit: contain; 
+    display: block; 
+    transform: scale(0.3);
+  }
+  
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .graphic-card {
+        width: 30%; /* Adjust width for medium screens */
+    }
+    
+    .image-card {
+        width: 30%; /* Adjust width for medium screens */
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+    }
+}
+
+@media (max-width: 900px) {
+    .graphic-card {
+        width: 45%; /* Adjust width for small screens */
+    }
+    
+    .image-card {
+        width: 45%; /* Adjust width for small screens */
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+    }
+}
+
+@media (max-width: 600px) {
+    .graphic-card {
+        width: 100%; /* Full width for extra small screens */
+    }
+    
+    .image-card {
+        width: 100%; /* Full width for extra small screens */
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr; /* Single column layout */
+    }
+
+    input[type="text"] {
+        width: 90%; /* Wider input field on small screens */
+    }
+
+    .about-header {
+        width: 90%; /* Wider about header on small screens */
+    }
+    
+    .images-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0px;
+        width: 100%;
+    }
+    header{
+        padding: 5px;    
+    }
+
+    .modal{
+        background-color: white;
+    }
+
+    .modal-image{
+        max-width: 100%;
+        /* height: auto; */
+        object-fit: contain;
+    }
+    .close{
+        top: 90vh;
+        right: calc(50% - 10px)
+    }
+}
+
+

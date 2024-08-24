@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graphics Gallery</title>
+    <link rel="shortcut icon" href="./imgs/icon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <button id="scrollToTopBtn" style="bottom: 20px" title="Go to top">
+      <img src="./imgs/arrow.png" width="35px" alt="to top icon" />
+    </button>
+    <header>
+      <h1>GraphicsBundles</h1>
+      <div class="button-container">
+        <a id="graphics" class="btn" href="./index.html">Graphics</a>
+        <a id="images" class="btn" href="./index.html?category=images"
+          >Images</a
+        >
+        <a id="fonts" class="btn" href="./index.html?category=fonts">Fonts</a>
+      </div>
+      <input type="text" id="search" />
+    </header>
+
+    <div id="graphics-container" class="graphics-container"></div>
+    <div id="pagination" class="pagination"></div>
+    <div id="modal" class="modal">
+      <span id="close" class="close">&times;</span>
+      <span id="modal-prev" class="modal-nav"
+        ><img class="nav-img" src="./imgs/prev.svg" alt="prev"
+      /></span>
+      <img id="modal-image" class="modal-image modal-img" />
+      <span id="modal-next" class="modal-nav"
+        ><img class="nav-img" src="./imgs/next.svg" alt="next"
+      /></span>
+    </div>
+    <footer>
+      <h1>Filter data by category</h1>
+      <hr />
+      <ul id="navbar"></ul>
+    </footer>
+
+    <script src="graphics.js"></script>
+    <script src="images.js"></script>
+    <script src="fonts.js"></script>
+    <script src="scripts.js"></script>
+  </body>
+</html>
