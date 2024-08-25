@@ -4,6 +4,7 @@ const category = getQueryParam("category");
 
 let filteredgraphics = shuffle(graphics);
 let data = shuffle(graphics);
+document.title = "GraphicsBundles | Graphics";
 
 const graphicsButton = document.getElementById("graphics");
 const imagesButton = document.getElementById("images");
@@ -23,10 +24,12 @@ buttons.forEach((button) => {
   if (!category) {
     graphicsButton.classList.add("active");
   } else if (category === "images") {
+    document.title = "GraphicsBundles | Images";
     filteredgraphics = shuffle(images);
     data = shuffle(images);
     imagesButton.classList.add("active");
   } else if (category === "fonts") {
+    document.title = "GraphicsBundles | Fonts";
     filteredgraphics = shuffle(fonts);
     data = shuffle(fonts);
     fontsButton.classList.add("active");
@@ -48,6 +51,11 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+function getRandomItem(arr) {
+  const randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -98,8 +106,12 @@ function rendergraphics() {
       <div class='card-footer'>
         <h3>${graphic.title}</h3>
         <div class='download'>
-        <small>${graphic.file_size}</small>
-        <small><a href='${graphic.download_link}' target="_blank" download>Download</a></small>
+        <small>${
+          graphic.file_size === "0.00 MB" ? "" : graphic.file_size
+        }</small>
+        <small><a class='download-link' referer=${graphic.article_url} href='${
+      graphic.download_link
+    }' target="_blank" download>Download</a></small>
         </div>
       </div>
     `;
@@ -417,3 +429,89 @@ function createNav() {
   });
   footer.style.display = "block";
 }
+
+document.querySelectorAll(".download-link").forEach(function (link) {
+  link.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    let url = this.href;
+    const referer = this.referer;
+    window.open(referer);
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader("User-Agent", getRandomItem(userAgents));
+    xhr.setRequestHeader("Referer", referer);
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        window.location.href = url;
+      }
+    };
+    xhr.send();
+  });
+});
+
+// // remove all cookies
+// window.onload = function () {
+//   function deleteAllCookies() {
+//     const cookies = document.cookie.split(";");
+//     cookies.forEach((cookie) => {
+//       const cookieName = cookie.split("=")[0].trim();
+//       document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+//     });
+//   }
+//   deleteAllCookies();
+// };
+
+window.onload = function () {
+  // Function to delete all cookies
+  function deleteAllCookies() {
+    const cookies = document.cookie.split(";");
+
+    cookies.forEach((cookie) => {
+      const cookieName = cookie.split("=")[0].trim();
+      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+    });
+  }
+
+  // Function to check if all images have been loaded
+  function checkAllImagesLoaded() {
+    const images = document.querySelectorAll("img");
+    let loadedCount = 0;
+
+    if (images.length === 0) {
+      // No images on the page, proceed to delete cookies
+      deleteAllCookies();
+      return;
+    }
+
+    images.forEach((image) => {
+      if (image.complete) {
+        loadedCount++;
+        if (loadedCount === images.length) {
+          // All images are loaded
+          deleteAllCookies();
+        }
+      } else {
+        image.addEventListener("load", function () {
+          loadedCount++;
+          if (loadedCount === images.length) {
+            // All images are loaded
+            deleteAllCookies();
+          }
+        });
+        image.addEventListener("error", function () {
+          // Handle errors if needed
+          loadedCount++;
+          if (loadedCount === images.length) {
+            // All images are loaded (including errors)
+            deleteAllCookies();
+          }
+        });
+      }
+    });
+  }
+
+  // Check if all images are loaded
+  checkAllImagesLoaded();
+};
