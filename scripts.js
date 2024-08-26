@@ -225,11 +225,15 @@ function renderPagination() {
 
 // Search functionality
 const searchBtn = document.getElementById("search");
-searchBtn.placeholder = "Search In Graphics | Logo Mockup, Menus...etc";
+footerTitle = document.getElementById("footer-title");
+searchBtn.placeholder = `Search In Graphics ${graphics.length}+ Graphics Assets!`;
+footerTitle.innerHTML = `Filter ${graphics.length}+ Graphics Assets By Category`;
 if (category === "images") {
-  searchBtn.placeholder = "Search In Images | Lion, Elephant...etc";
+  searchBtn.placeholder = `Search In ${images.length} Images`;
+  footerTitle.innerHTML = `Filter ${images.length} Images By Category`;
 } else if (category === "fonts") {
-  searchBtn.placeholder = "Search In Fonts...";
+  searchBtn.placeholder = `Search In ${fonts.length}+ Fonts`;
+  footerTitle.innerHTML = `Filter ${fonts.length}+ Fonts By Category`;
 }
 
 searchBtn.addEventListener("input", (e) => {
